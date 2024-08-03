@@ -1,10 +1,10 @@
-export interface TogoModelCategory {
+export type TogoModelCategory = {
   id: string;
   name: string;
   color: string;
-}
+};
 
-export interface TogoModel {
+export type TogoModel = {
   id: string;
   latitude: number;
   longitude: number;
@@ -14,4 +14,4 @@ export interface TogoModel {
   photoPath: string;
   createdAt: string;
   updatedAt: string;
-}
+};

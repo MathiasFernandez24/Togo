@@ -1,15 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, StyleSheet, Text, TextInput, View } from "react-native";
-import useLocalDataBase from "../hooks/useLocalDataBase";
+// import useLocalDataBase from "../hooks/useLocalDataBase";
 import { TogoModel } from "../models/togo-model";
+import { useTogoActions } from "../context/TogoActions";
+// import { useDataContext } from "../store/dataProvider";
 
 const Home = () => {
-  const { initToGoDB, getToGoDB, addToGoDB, deleteDB } = useLocalDataBase();
+  // const { data, initToGoDB, getToGoDB, addToGoDB, deleteDB } =
+  //   useLocalDataBase();
   const [name, setName] = useState("");
-  const [data, setData] = useState([]);
+  const { addItem, updateItem, deleteItem } = useTogoActions();
+  // const valor = useDataContext();
+
+  // console.log("valor");
+  // console.log(valor);
+  // console.log("valor FIN");
+
+  // useEffect(() => {
+  //   getToGoDB();
+  // }, []);
 
   const onhandleAdd = () => {
-    addToGoDB({
+    const itemNuevo: TogoModel = {
       id: name,
       category: {
         id: "002",
@@ -23,13 +35,26 @@ const Home = () => {
       latitude: 123,
       longitude: 456,
       photoPath: "no path",
-    });
+    };
+
+    addItem(itemNuevo);
+    // addToGoDB({
+    //   id: name,
+    //   category: {
+    //     id: "002",
+    //     color: "red",
+    //     name: name,
+    //   },
+    //   createdAt: "ya",
+    //   updatedAt: "ya",
+    //   title: "Bendita locura",
+    //   detail: "nice place....",
+    //   latitude: 123,
+    //   longitude: 456,
+    //   photoPath: "no path",
+    // });
   };
 
-  const refresh = async () => {
-    const data = await getToGoDB();
-    setData(data);
-  };
   return (
     <View style={{ gap: 10 }}>
       <View style={{ height: 100 }} />
@@ -39,14 +64,15 @@ const Home = () => {
         onChangeText={setName}
         style={{ backgroundColor: "grey", fontSize: 30 }}
       />
-      <Button title="DELETE DB" onPress={deleteDB} />
-      <Button title="OPEN DB" onPress={initToGoDB} />
-      <Button title="READ DB" onPress={getToGoDB} />
+      <Button title="DELETE DB" onPress={() => {}} />
+      <Button title="OPEN DB" onPress={() => {}} />
+      <Button title="READ DB" onPress={() => {}} />
       <Button title="ADD DB" onPress={onhandleAdd} />
-      <Button title="REFRESH" onPress={refresh} />
-      {data.map((item) => {
+      {/* <Button title="REFRESH" onPress={refresh} /> */}
+      {/* {data.map((item) => {
         return (
           <View
+            key={item.id}
             style={{
               height: 30,
               margin: 10,
@@ -57,7 +83,7 @@ const Home = () => {
             <Text>{item.id}</Text>
           </View>
         );
-      })}
+      })} */}
     </View>
   );
 };
