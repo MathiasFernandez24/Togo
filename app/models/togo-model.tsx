@@ -1,17 +1,21 @@
 export type TogoModelCategory = {
   id: string;
-  name: string;
+  title: string;
   color: string;
+  createdAt: string;
+  updatedAt: string;
+  orderNumber: string;
 };
 
 export type TogoModel = {
   id: string;
-  latitude: number;
-  longitude: number;
   title: string;
   detail: string;
-  categoryId: string;
+  latitude: number;
+  longitude: number;
   photoPath: string;
   createdAt: string;
   updatedAt: string;
+  orderNumber: string;
+  categoryId: string;
 };

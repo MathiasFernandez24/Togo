@@ -20,14 +20,15 @@ const Home = () => {
 
   const itemNuevo: TogoModel = {
     id: id,
-    categoryId: "0",
-    createdAt: "ya",
-    updatedAt: "ya",
     title: name,
     detail: "nice place....",
     latitude: 123,
     longitude: 456,
     photoPath: "no path",
+    createdAt: "ya",
+    updatedAt: "ya",
+    orderNumber: "1",
+    categoryId: "0",
   };
   const onhandleAdd = () => {
     addItem(itemNuevo);
