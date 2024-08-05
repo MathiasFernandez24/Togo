@@ -10,7 +10,7 @@ export type TogoModel = {
   longitude: number;
   title: string;
   detail: string;
-  category: TogoModelCategory;
+  categoryId: string;
   photoPath: string;
   createdAt: string;
   updatedAt: string;

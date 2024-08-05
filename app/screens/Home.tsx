@@ -1,58 +1,39 @@
-import React, { useEffect, useState } from "react";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
-// import useLocalDataBase from "../hooks/useLocalDataBase";
-import { TogoModel } from "../models/togo-model";
+import React, { useState } from "react";
+import {
+  Button,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { useTogoActions } from "../context/TogoActions";
-// import { useDataContext } from "../store/dataProvider";
+import { useTogoContext } from "../context/TogoContext";
+import { TogoModel } from "../models/togo-model";
 
 const Home = () => {
-  // const { data, initToGoDB, getToGoDB, addToGoDB, deleteDB } =
-  //   useLocalDataBase();
   const [name, setName] = useState("");
+  const [id, setId] = useState("");
   const { addItem, updateItem, deleteItem } = useTogoActions();
-  // const valor = useDataContext();
 
-  // console.log("valor");
-  // console.log(valor);
-  // console.log("valor FIN");
+  const { state } = useTogoContext();
 
-  // useEffect(() => {
-  //   getToGoDB();
-  // }, []);
-
+  const itemNuevo: TogoModel = {
+    id: id,
+    categoryId: "0",
+    createdAt: "ya",
+    updatedAt: "ya",
+    title: name,
+    detail: "nice place....",
+    latitude: 123,
+    longitude: 456,
+    photoPath: "no path",
+  };
   const onhandleAdd = () => {
-    const itemNuevo: TogoModel = {
-      id: name,
-      category: {
-        id: "002",
-        color: "red",
-        name: name,
-      },
-      createdAt: "ya",
-      updatedAt: "ya",
-      title: "Bendita locura",
-      detail: "nice place....",
-      latitude: 123,
-      longitude: 456,
-      photoPath: "no path",
-    };
-
     addItem(itemNuevo);
-    // addToGoDB({
-    //   id: name,
-    //   category: {
-    //     id: "002",
-    //     color: "red",
-    //     name: name,
-    //   },
-    //   createdAt: "ya",
-    //   updatedAt: "ya",
-    //   title: "Bendita locura",
-    //   detail: "nice place....",
-    //   latitude: 123,
-    //   longitude: 456,
-    //   photoPath: "no path",
-    // });
+  };
+  const onhandleUpdate = () => {
+    updateItem(itemNuevo);
   };
 
   return (
@@ -60,30 +41,37 @@ const Home = () => {
       <View style={{ height: 100 }} />
       <Text>Home</Text>
       <TextInput
+        value={id}
+        onChangeText={setId}
+        style={{ backgroundColor: "grey", fontSize: 30 }}
+        placeholder="id"
+      />
+      <TextInput
         value={name}
         onChangeText={setName}
         style={{ backgroundColor: "grey", fontSize: 30 }}
+        placeholder="name"
       />
-      <Button title="DELETE DB" onPress={() => {}} />
-      <Button title="OPEN DB" onPress={() => {}} />
-      <Button title="READ DB" onPress={() => {}} />
-      <Button title="ADD DB" onPress={onhandleAdd} />
-      {/* <Button title="REFRESH" onPress={refresh} /> */}
-      {/* {data.map((item) => {
+      <Button title="Crear nuevo" onPress={onhandleAdd} />
+      <Button title="Actualizar" onPress={onhandleUpdate} />
+      {state.togoItems.map((item) => {
         return (
-          <View
+          <TouchableOpacity
+            onPress={() => {
+              deleteItem(item.id);
+            }}
             key={item.id}
             style={{
-              height: 30,
               margin: 10,
               width: 100,
               backgroundColor: "red",
             }}
           >
             <Text>{item.id}</Text>
-          </View>
+            <Text>{item.title}</Text>
+          </TouchableOpacity>
         );
-      })} */}
+      })}
     </View>
   );
 };
