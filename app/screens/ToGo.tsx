@@ -13,7 +13,6 @@ const ToGo = () => {
       style={{
         flex: 1,
         backgroundColor: "pink",
-        paddingTop: 30,
         flexDirection: "row",
       }}
     >
