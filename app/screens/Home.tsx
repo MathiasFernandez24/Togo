@@ -1,26 +1,19 @@
 import React, { useState } from "react";
-import {
-  Button,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 import { useTogoActions } from "../context/TogoActions";
 import { useTogoContext } from "../context/TogoContext";
 import { TogoModel } from "../models/togo-model";
 
 const Home = () => {
-  const [name, setName] = useState("");
-  const [id, setId] = useState("");
-  const { addItem, updateItem, deleteItem } = useTogoActions();
+  const [title, setTitle] = useState("");
+  const [details, setDetails] = useState("");
+  const { addItem, updateItem } = useTogoActions();
 
   const { state } = useTogoContext();
 
   const itemNuevo: TogoModel = {
-    id: id,
-    title: name,
+    id: Date.now().toString(),
+    title: title,
     detail: "nice place....",
     latitude: 123,
     longitude: 456,
@@ -36,26 +29,43 @@ const Home = () => {
   const onhandleUpdate = () => {
     updateItem(itemNuevo);
   };
+  const onHandleCategotyButton = () => {};
 
   return (
-    <View style={{ gap: 10 }}>
-      <View style={{ height: 100 }} />
+    <View style={{ gap: 10, flex: 1 }}>
+      <View style={{ height: 50 }} />
       <Text>Home</Text>
       <TextInput
-        value={id}
-        onChangeText={setId}
+        value={title}
+        onChangeText={setTitle}
         style={{ backgroundColor: "grey", fontSize: 30 }}
-        placeholder="id"
+        placeholder="Nombre del lugar"
+        numberOfLines={1}
       />
       <TextInput
-        value={name}
-        onChangeText={setName}
-        style={{ backgroundColor: "grey", fontSize: 30 }}
-        placeholder="name"
+        value={details}
+        onChangeText={setDetails}
+        style={{
+          backgroundColor: "grey",
+          fontSize: 20,
+          width: 200,
+          height: 200,
+          textAlign: "left",
+          textAlignVertical: "top",
+        }}
+        placeholder="id"
+        multiline
+        maxLength={100}
       />
+      <Text>categoria:</Text>
+      <Button
+        title="(Nombre categoria default)"
+        onPress={onHandleCategotyButton}
+      />
+      <View style={{ flex: 1 }} />
       <Button title="Crear nuevo" onPress={onhandleAdd} />
       <Button title="Actualizar" onPress={onhandleUpdate} />
-      {state.togoItems.map((item) => {
+      {/* {state.togoItems.map((item) => {
         return (
           <TouchableOpacity
             onPress={() => {
@@ -72,7 +82,7 @@ const Home = () => {
             <Text>{item.title}</Text>
           </TouchableOpacity>
         );
-      })}
+      })} */}
     </View>
   );
 };
