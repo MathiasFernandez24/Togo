@@ -1,35 +1,61 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useEffect } from "react";
-// import useLocalDataBase from "../hooks/useLocalDataBase";
-import { useTogoActions } from "../context/TogoActions";
-import { useTogoContext } from "../context/TogoContext";
+import { useTogoPlace } from "../context/TogoPlaceContext";
+import { useTogoCategory } from "../context/TogoCategoryContext";
 
 const ToGo = () => {
   // const { data } = useLocalDataBase();
   // console.log(data);
-  const { state } = useTogoContext();
-  const { addItem, updateItem, deleteItem } = useTogoActions();
-
+  const { togoPlaces, deleteTogoPlace } = useTogoPlace();
+  const { togoCategories, deleteTogoCategory } = useTogoCategory();
   return (
-    <View style={{ flex: 1, backgroundColor: "pink" }}>
-      {state.togoItems.map((item) => {
-        return (
-          <TouchableOpacity
-            onPress={() => {
-              deleteItem(item.id);
-            }}
-            key={item.id}
-            style={{
-              height: 30,
-              margin: 10,
-              width: 100,
-              backgroundColor: "red",
-            }}
-          >
-            <Text>{item.id}hola</Text>
-          </TouchableOpacity>
-        );
-      })}
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: "pink",
+        paddingTop: 30,
+        flexDirection: "row",
+      }}
+    >
+      <View style={{ flex: 1, backgroundColor: "green" }}>
+        {togoPlaces.map((item) => {
+          return (
+            <TouchableOpacity
+              onPress={() => {
+                deleteTogoPlace(item.id);
+              }}
+              key={item.id}
+              style={{
+                margin: 10,
+                backgroundColor: "red",
+              }}
+            >
+              <Text>{item.id}</Text>
+              <Text>{item.title}</Text>
+              <Text>{item.detail}</Text>
+            </TouchableOpacity>
+          );
+        })}
+      </View>
+      <View style={{ flex: 1, backgroundColor: "yellow" }}>
+        {togoCategories.map((item) => {
+          return (
+            <TouchableOpacity
+              onPress={() => {
+                deleteTogoCategory(item.id);
+              }}
+              key={item.id}
+              style={{
+                margin: 10,
+                backgroundColor: "red",
+              }}
+            >
+              <Text>{item.id}</Text>
+              <Text>{item.title}</Text>
+            </TouchableOpacity>
+          );
+        })}
+      </View>
     </View>
   );
 };

@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import { Button, StyleSheet, Text, TextInput, View } from "react-native";
-import { useTogoActions } from "../context/TogoActions";
-import { useTogoContext } from "../context/TogoContext";
-import { TogoModel } from "../models/togo-model";
+import { TogoCategoryModel } from "../models/TogoCategoryModel";
+import { TogoPlaceModel } from "../models/TogoPlaceModel";
+import { useTogoCategory } from "../context/TogoCategoryContext";
+import { useTogoPlace } from "../context/TogoPlaceContext";
 
 const Home = () => {
   const [title, setTitle] = useState("");
   const [details, setDetails] = useState("");
-  const { addItem, updateItem } = useTogoActions();
+  const { addTogoCategory, updateTogoCategory } = useTogoCategory();
+  const { addTogoPlace, updateTogoPlace } = useTogoPlace();
 
-  const { state } = useTogoContext();
-
-  const itemNuevo: TogoModel = {
+  const newTogoPlace: TogoPlaceModel = {
     id: Date.now().toString(),
     title: title,
-    detail: "nice place....",
+    detail: details,
     latitude: 123,
     longitude: 456,
     photoPath: "no path",
@@ -23,17 +23,30 @@ const Home = () => {
     orderNumber: "1",
     categoryId: "0",
   };
-  const onhandleAdd = () => {
-    addItem(itemNuevo);
+
+  const newTogoCategory: TogoCategoryModel = {
+    id: Date.now().toString(),
+    title: title,
+    color: "red",
+    createdAt: "ya",
+    updatedAt: "ya",
+    orderNumber: "0",
   };
-  const onhandleUpdate = () => {
-    updateItem(itemNuevo);
+  const createPlace = () => {
+    addTogoPlace(newTogoPlace);
   };
-  const onHandleCategotyButton = () => {};
+  const updatePlace = () => {
+    updateTogoPlace(newTogoPlace);
+  };
+  const createCategory = () => {
+    addTogoCategory(newTogoCategory);
+  };
+  const updateCategory = () => {
+    updateTogoCategory(newTogoCategory);
+  };
 
   return (
-    <View style={{ gap: 10, flex: 1 }}>
-      <View style={{ height: 50 }} />
+    <View style={{ gap: 10, flex: 1, padding: 30 }}>
       <Text>Home</Text>
       <TextInput
         value={title}
@@ -48,7 +61,6 @@ const Home = () => {
         style={{
           backgroundColor: "grey",
           fontSize: 20,
-          width: 200,
           height: 200,
           textAlign: "left",
           textAlignVertical: "top",
@@ -60,29 +72,13 @@ const Home = () => {
       <Text>categoria:</Text>
       <Button
         title="(Nombre categoria default)"
-        onPress={onHandleCategotyButton}
+        // onPress={onHandleCategotyButton}
       />
       <View style={{ flex: 1 }} />
-      <Button title="Crear nuevo" onPress={onhandleAdd} />
-      <Button title="Actualizar" onPress={onhandleUpdate} />
-      {/* {state.togoItems.map((item) => {
-        return (
-          <TouchableOpacity
-            onPress={() => {
-              deleteItem(item.id);
-            }}
-            key={item.id}
-            style={{
-              margin: 10,
-              width: 100,
-              backgroundColor: "red",
-            }}
-          >
-            <Text>{item.id}</Text>
-            <Text>{item.title}</Text>
-          </TouchableOpacity>
-        );
-      })} */}
+      <Button title="Crear Category" onPress={createCategory} />
+      <Button title="Actualizar Category" onPress={updateCategory} />
+      <Button title="Crear Place" onPress={createPlace} />
+      <Button title="Actualizar Place" onPress={updatePlace} />
     </View>
   );
 };

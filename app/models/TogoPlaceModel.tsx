@@ -1,13 +1,4 @@
-export type TogoModelCategory = {
-  id: string;
-  title: string;
-  color: string;
-  createdAt: string;
-  updatedAt: string;
-  orderNumber: string;
-};
-
-export type TogoModel = {
+export type TogoPlaceModel = {
   id: string;
   title: string;
   detail: string;
