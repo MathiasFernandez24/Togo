@@ -5,6 +5,8 @@ import { TogoPlaceProvider } from "./app/context/TogoPlaceContext";
 import MainNavigation from "./app/navigation/MainNavigation";
 
 export default function App() {
+
+  // cuenta B
   return (
     <TogoCategoryProvider>
       <TogoPlaceProvider>
